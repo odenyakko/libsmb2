@@ -44,6 +44,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
   add_definitions(-DWIN32_LEAN_AND_MEAN -D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_SECURE_NO_WARNINGS)
   include_directories(include/msvc)
   
+  add_compile_options(/wd4018 /wd4244 /wd4267)
   add_definitions(-D_CRT_DECLARE_NONSTDC_NAMES=0)
   add_definitions(-Dstrdup=_strdup)
   add_definitions(-DO_CREAT=_O_CREAT)
