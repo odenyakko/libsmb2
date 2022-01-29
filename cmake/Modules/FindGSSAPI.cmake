@@ -9,7 +9,20 @@
 # GSSAPI_INCLUDE_DIRS - the gssapi include directory
 # GSSAPI_LIBRARIES - the gssapi libraries
 
-find_library(GSSAPI_LIBRARY NAMES gssapi_krb5)
+if (WIN32 AND HAVE_MIT_KERBEROS)
+    if (CMAKE_CL_64)
+        find_library(GSSAPI_LIBRARY1 NAMES gssapi64)
+        find_library(GSSAPI_LIBRARY2 NAMES krb5_64)
+    else ()
+        find_library(GSSAPI_LIBRARY1 NAMES gssapi32)
+        find_library(GSSAPI_LIBRARY2 NAMES krb5_32)
+    endif ()
+    if (GSSAPI_LIBRARY1 AND GSSAPI_LIBRARY2)
+        set(GSSAPI_LIBRARY ${GSSAPI_LIBRARY1} ${GSSAPI_LIBRARY2})
+    endif ()
+else ()
+    find_library(GSSAPI_LIBRARY NAMES gssapi_krb5)
+endif ()
 
 find_path(GSSAPI_INCLUDE_DIR NAMES gssapi.h
                                    gssapi/gssapi.h)
