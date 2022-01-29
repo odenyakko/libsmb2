@@ -34,7 +34,8 @@ include(cmake/ConfigureChecks.cmake)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}
                     include
                     include/smb2
-                    ${OPENSSL_INCLUDE_DIR})
+                    ${OPENSSL_INCLUDE_DIR}
+                    ${GSSAPI_INCLUDE_DIR})
 
 set(core_DEPENDS ${GSSAPI_LIBRARIES} CACHE STRING "" FORCE)
 
