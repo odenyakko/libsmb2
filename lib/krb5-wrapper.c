@@ -53,6 +53,10 @@
 #include <unistd.h>
 #endif
 
+#ifdef _WIN32
+#include "asprintf.h"
+#endif
+
 #include <krb5/krb5.h>
 #include <gssapi/gssapi_krb5.h>
 #include <gssapi/gssapi.h>
