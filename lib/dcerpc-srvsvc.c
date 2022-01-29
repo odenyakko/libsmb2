@@ -87,10 +87,10 @@ srvsvc_NetShareInfo1_coder(struct dcerpc_context *ctx,
 {
         struct srvsvc_netshareinfo1 *nsi1 = ptr;
 
-        offset = dcerpc_ptr_coder(ctx, pdu, iov, offset, &nsi1->name,
+        offset = dcerpc_ptr_coder(ctx, pdu, iov, offset, (void *)&nsi1->name,
                                    PTR_UNIQUE, dcerpc_utf16z_coder);
         offset = dcerpc_uint32_coder(ctx, pdu, iov, offset, &nsi1->type);
-        offset = dcerpc_ptr_coder(ctx, pdu, iov, offset, &nsi1->comment,
+        offset = dcerpc_ptr_coder(ctx, pdu, iov, offset, (void*)&nsi1->comment,
                                    PTR_UNIQUE, dcerpc_utf16z_coder);
         return offset;
 }
@@ -210,7 +210,7 @@ srvsvc_NetrShareEnum_req_coder(struct dcerpc_context *ctx,
         struct srvsvc_netshareenumall_req *req = ptr;
         struct srvsvc_netsharectr ctr;
 
-        offset = dcerpc_ptr_coder(ctx, pdu, iov, offset, &req->server,
+        offset = dcerpc_ptr_coder(ctx, pdu, iov, offset, (void*)&req->server,
                                    PTR_UNIQUE, dcerpc_utf16z_coder);
         offset = dcerpc_ptr_coder(ctx, pdu, iov, offset, &req->level,
                                    PTR_REF, dcerpc_uint32_coder);
@@ -317,7 +317,7 @@ srvsvc_NetrShareGetInfo_req_coder(struct dcerpc_context *dce,
 {
         struct srvsvc_netrsharegetinfo_req *req = ptr;
 
-        offset = dcerpc_ptr_coder(dce, pdu, iov, offset, &req->ServerName,
+        offset = dcerpc_ptr_coder(dce, pdu, iov, offset, (void*)&req->ServerName,
                                   PTR_UNIQUE, dcerpc_utf16z_coder);
         offset = dcerpc_ptr_coder(dce, pdu, iov, offset,
                                   discard_const(&req->NetName),

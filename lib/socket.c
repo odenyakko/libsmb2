@@ -607,7 +607,7 @@ read_more_data:
 static ssize_t smb2_readv_from_socket(struct smb2_context *smb2,
                                       const struct iovec *iov, int iovcnt)
 {
-        return readv(smb2->fd, iov, iovcnt);
+        return readv(smb2->fd, (struct iovec *)iov, iovcnt);
 }
 
 static int
