@@ -34,7 +34,8 @@ include(cmake/ConfigureChecks.cmake)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}
                     include
                     include/smb2
-                    ${OPENSSL_INCLUDE_DIR})
+                    ${OPENSSL_INCLUDE_DIR}
+                    ${GSSAPI_INCLUDE_DIR})
 
 set(core_DEPENDS ${GSSAPI_LIBRARIES} CACHE STRING "" FORCE)
 
@@ -42,6 +43,15 @@ if(CMAKE_SYSTEM_NAME MATCHES Windows)
   list(APPEND CORE_LIBRARIES ws2_32.lib)
   add_definitions(-DWIN32_LEAN_AND_MEAN -D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_SECURE_NO_WARNINGS)
   include_directories(include/msvc)
+  
+  add_compile_options(/wd4018 /wd4244 /wd4267)
+  add_definitions(-D_CRT_DECLARE_NONSTDC_NAMES=0)
+  add_definitions(-Dstrdup=_strdup)
+  add_definitions(-DO_CREAT=_O_CREAT)
+  add_definitions(-DO_TRUNC=_O_TRUNC)
+  add_definitions(-DO_EXCL=_O_EXCL)
+  add_definitions(-DO_RDWR=_O_RDWR)
+  add_definitions(-DO_WRONLY=_O_WRONLY)
 elseif(CMAKE_SYSTEM_NAME STREQUAL Solaris)
   find_library(SOCKET_LIBRARY socket)
   find_library(NSL_LIBRARY nsl)
